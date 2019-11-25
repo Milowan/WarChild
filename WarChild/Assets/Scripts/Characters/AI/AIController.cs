@@ -6,19 +6,13 @@ public class AIController : MonoBehaviour
 {
     public delegate void AIEvent();
 
-    public static event AIEvent AIEventQueue;
+    public static event AIEvent Wander;
+    public static event AIEvent Chase;
+    public static event AIEvent Shoot;
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        RunEventQueue();
-    }
 
-    public static void RunEventQueue()
-    {
-        if (AIEventQueue != null)
-        {
-            AIEventQueue();
-        }
     }
 }

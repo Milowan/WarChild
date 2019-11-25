@@ -8,4 +8,24 @@ public class CharacterStats
     protected float currentHP;
     protected float movSpeed;
     protected float armour;
+
+    public float GetMovSpeed()
+    {
+        return movSpeed;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public float GetCurrentHP()
+    {
+        return currentHP;
+    }
+
+    public float GetArmour()
+    {
+        return armour;
+    }
 }

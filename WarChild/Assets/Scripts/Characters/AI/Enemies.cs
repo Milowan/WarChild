@@ -7,7 +7,7 @@ public class Enemies : Character
     // Start is called before the first frame update
     void Start()
     {
-        AIController.AIEventQueue += Wander;
+        AIController.Wander += Wander;
     }
 
     // Update is called once per frame
