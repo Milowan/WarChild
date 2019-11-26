@@ -2,27 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Navigation : Menu
+public class MainMenu : Menu
 {
     private void Awake()
     {
-        gameObject.SetActive(false);
         UIManager.OpenNavigation += OpenNavigation;
         UIManager.CloseNavigation += CloseNavigation;
+        UIManager.OpenArsenal += OpenArsenal;
+        UIManager.CloseArsenal += CloseArsenal;
     }
 
     protected override void Back()
     {
-        UIManager.CloseNav();
+        Application.Quit();
     }
 
     private void OpenNavigation()
     {
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     private void CloseNavigation()
     {
+        gameObject.SetActive(true);
+    }
+
+    private void OpenArsenal()
+    {
         gameObject.SetActive(false);
+    }
+
+    private void CloseArsenal()
+    {
+        gameObject.SetActive(true);
     }
 }

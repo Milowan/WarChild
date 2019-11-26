@@ -5,10 +5,16 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Back();
+        }
+    }
+
+    protected virtual void Back()
+    {
+
     }
 }
