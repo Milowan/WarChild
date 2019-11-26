@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Menu : MonoBehaviour
+public class UIButton : MonoBehaviour
 {
-
-    // Update is called once per frame
-    void Update()
+    public virtual void Activate()
     {
-        
+
     }
 }
