@@ -5,35 +5,68 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     protected WeaponStats stats;
+    protected BulletPool pool;
     private bool active;
-    private float cdTimer;
-    private int currentClip;
+    private bool reloading;
+    private float reloadTimer;
+    protected int currentClip;
+    protected float cooldown;
+    protected float cdTimer;
 
     private void Awake()
     {
         cdTimer = 0;
+        pool = GameObject.Find("BulletPool").GetComponent<BulletPool>();
+        reloading = false;
     }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if (reloading)
+        {
+            Reload();
+        }
+        else
+        {
+            reloadTimer = 0.0f;
+        }
     }
 
-    public void Fire()
+    public virtual void Fire()
     {
 
     }
 
     public void Trigger()
     {
-        float cooldown = 1 / stats.GetAtkSpeed();
-        if (cdTimer < cooldown)
+        if (currentClip > 0)
         {
-            cdTimer += Time.deltaTime;
+            if (cdTimer < cooldown)
+            {
+                cdTimer += Time.deltaTime;
+            }
+            else
+            {
+                Fire();
+            }
         }
         else
         {
-            Fire();
+            reloading = true;
+        }
+    }
+
+    private void Reload()
+    {
+        if (reloadTimer < stats.GetReloadSpeed())
+        {
+            reloadTimer += Time.deltaTime;
+        }
+        else
+        {
+            currentClip = stats.GetClipSize();
+            reloading = false;
         }
     }
 }

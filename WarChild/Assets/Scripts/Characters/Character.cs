@@ -11,11 +11,21 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public CharacterStats GetStats()
     {
         return stats;
+    }
+
+    public void PullTrigger()
+    {
+        equippedWeapon.Trigger();
+    }
+
+    public void TakeDamage()
+    {
+
     }
 }

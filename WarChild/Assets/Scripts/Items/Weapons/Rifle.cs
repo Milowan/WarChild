@@ -8,11 +8,20 @@ public class Rifle : Weapon
     void Start()
     {
         stats = new RifleStats();
+        currentClip = stats.GetClipSize();
+        cooldown = 1 / stats.GetAtkSpeed();
+        cdTimer = cooldown;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.DrawRay(transform.position, transform.forward * 10f, Color.black);
+    }
+
+    public override void Fire()
+    {
+        pool.GetFreeBullet().Initialize(transform, stats.GetSpeed(), stats.GetDamage());
+        cdTimer = 0.0f;
     }
 }

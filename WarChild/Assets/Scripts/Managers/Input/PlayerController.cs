@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float movSpeed;
     private float sensitivity;
     private Camera camera;
+    private Player player;
     private float pitch;
     private float maxPitch;
     private float yaw;
@@ -14,8 +15,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         maxPitch = 30f;
+        player = GetComponent<Player>();
         movSpeed = GetComponent<Player>().GetStats().GetMovSpeed();
-        sensitivity = 4f;
+        sensitivity = 1f;
         camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         pitch = 0.0f;
         yaw = 0.0f;
@@ -36,5 +38,10 @@ public class PlayerController : MonoBehaviour
 
         transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
         camera.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+
+        if (Input.GetButton("Fire3"))
+        {
+            player.PullTrigger();
+        }
     }
 }

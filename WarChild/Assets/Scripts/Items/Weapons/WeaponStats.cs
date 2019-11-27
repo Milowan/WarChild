@@ -7,7 +7,7 @@ public class WeaponStats
     //Shots per second
     protected float atkSp;
     protected float dmg;
-    protected float range;
+    protected float flightSpeed;
     protected int clipSize;
     //in seconds
     protected float reloadSp;
@@ -24,9 +24,9 @@ public class WeaponStats
         return dmg;
     }
 
-    public float GetRange()
+    public float GetSpeed()
     {
-        return range;
+        return flightSpeed;
     }
 
     public int GetClipSize()
