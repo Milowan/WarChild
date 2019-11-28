@@ -28,4 +28,15 @@ public class CharacterStats
     {
         return armour;
     }
+
+    public float ReduceCurrentHP(float amount)
+    {
+        currentHP -= amount;
+        return currentHP;
+    }
+
+    public void SetCurrentHP(float amount)
+    {
+        currentHP = amount;
+    }
 }

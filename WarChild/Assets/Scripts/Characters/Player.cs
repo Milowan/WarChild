@@ -5,24 +5,28 @@ using UnityEngine;
 public class Player : Character
 {
     public GameObject defaultWeaponPrefab;
-    private Vector3 weaponPosition;
+    private Rigidbody body;
 
     // Start is called before the first frame update
     void Awake()
     {
+        body = GetComponent<Rigidbody>();
         equippedWeapon = PlayerInventory.equippedWeapon;
         if (equippedWeapon == null)
         {
             equippedWeapon = Instantiate(defaultWeaponPrefab).GetComponent<Weapon>();
         }
         stats = new PlayerStats();
+        stats.SetCurrentHP(stats.GetMaxHealth());
+    }
+
+    public Rigidbody GetBody()
+    {
+        return body;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        weaponPosition = transform.right * 0.5f;
-        equippedWeapon.gameObject.transform.position = transform.position + weaponPosition;
-        equippedWeapon.gameObject.transform.rotation = transform.rotation;
     }
 }

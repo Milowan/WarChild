@@ -6,13 +6,23 @@ public class Bullet : MonoBehaviour
 {
     private float flightSpeed;
     private float damage;
+    private Renderer renderer;
+    private Vector3 forward;
     private float lifespan;
     private float age;
 
     private void Awake()
     {
-        lifespan = 1.5f;
+        lifespan = 1.0f;
         age = 0;
+        gameObject.SetActive(false);
+        renderer = GetComponent<Renderer>();
+        Color color = new Color();
+        color.r = 200f;
+        color.g = 175f;
+        color.b = 50f;
+        color.a = 0.5f;
+        renderer.material.SetColor("_Color", color);
     }
 
     private void Update()
@@ -20,8 +30,21 @@ public class Bullet : MonoBehaviour
         if (age < lifespan)
         {
             age += Time.deltaTime;
-            transform.position += transform.forward * flightSpeed * Time.deltaTime;
-            Debug.DrawRay(transform.position, transform.forward * 5f, Color.black);
+
+            RaycastHit hit;
+            float hitCheckRange = 5.0f;
+            Physics.Raycast(transform.position, forward, out hit, hitCheckRange);
+            if (hit.collider != null)
+            {
+                Character character;
+                if (character = hit.collider.GetComponent<Character>())
+                {
+                    character.TakeDamage(damage);
+                    Despawn();
+                }
+            }
+
+            transform.position += forward * flightSpeed * Time.deltaTime;
         }
         else
         {
@@ -29,8 +52,9 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void Initialize(Transform startPoint, float speed, float dmg)
+    public void Initialize(Transform startPoint, Vector3 direction, float speed, float dmg)
     {
+        forward = direction;
         transform.position = startPoint.position + startPoint.forward;
         transform.rotation = startPoint.rotation;
         gameObject.SetActive(true);
@@ -43,15 +67,5 @@ public class Bullet : MonoBehaviour
         age = 0;
         transform.position = Vector3.zero;
         gameObject.SetActive(false);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Character character;
-        if (character = other.GetComponent<Character>())
-        {
-            character.TakeDamage();
-            Despawn();
-        }
     }
 }

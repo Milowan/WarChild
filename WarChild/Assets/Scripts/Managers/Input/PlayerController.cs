@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
     private float pitch;
     private float maxPitch;
     private float yaw;
+    private float jumpSpeed;
 
     private void Start()
     {
+        jumpSpeed = 10f;
         maxPitch = 30f;
         player = GetComponent<Player>();
         movSpeed = GetComponent<Player>().GetStats().GetMovSpeed();
@@ -39,9 +41,14 @@ public class PlayerController : MonoBehaviour
         transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
         camera.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
 
-        if (Input.GetButton("Fire3"))
+        if (Input.GetButton("Fire1"))
         {
             player.PullTrigger();
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            player.GetBody().AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
         }
     }
 }
