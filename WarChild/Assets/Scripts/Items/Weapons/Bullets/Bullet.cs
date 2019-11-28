@@ -6,7 +6,6 @@ public class Bullet : MonoBehaviour
 {
     private float flightSpeed;
     private float damage;
-    private Renderer renderer;
     private Vector3 forward;
     private float lifespan;
     private float age;
@@ -16,13 +15,6 @@ public class Bullet : MonoBehaviour
         lifespan = 1.0f;
         age = 0;
         gameObject.SetActive(false);
-        renderer = GetComponent<Renderer>();
-        Color color = new Color();
-        color.r = 200f;
-        color.g = 175f;
-        color.b = 50f;
-        color.a = 0.5f;
-        renderer.material.SetColor("_Color", color);
     }
 
     private void Update()
@@ -40,8 +32,8 @@ public class Bullet : MonoBehaviour
                 if (character = hit.collider.GetComponent<Character>())
                 {
                     character.TakeDamage(damage);
-                    Despawn();
                 }
+                Despawn();
             }
 
             transform.position += forward * flightSpeed * Time.deltaTime;

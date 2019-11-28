@@ -7,6 +7,10 @@ public class Rifleman : Enemy
     // Start is called before the first frame update
     void Start()
     {
+    }
+
+    protected override void SetStats()
+    {
         stats = new RiflemanStats();
         stats.SetCurrentHP(stats.GetMaxHealth());
     }
