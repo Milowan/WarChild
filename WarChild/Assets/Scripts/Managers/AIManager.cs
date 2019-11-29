@@ -11,6 +11,7 @@ public class AIManager : MonoBehaviour
     private float spawnCooldown;
     private float cooldownTimer;
     private Transform[] spawnPoints;
+    private static Character initialTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,11 @@ public class AIManager : MonoBehaviour
         cooldownTimer += Time.deltaTime;
     }
 
+    public static void StartWithTarget(Character target)
+    {
+        initialTarget = target;
+    }
+
     private Enemy GetInactiveEnemy()
     {
         Enemy enemy = null;
@@ -55,10 +61,10 @@ public class AIManager : MonoBehaviour
             if (!nme.gameObject.activeSelf)
             {
                 enemy = nme;
+                enemy.SetTarget(initialTarget);
                 break;
             }
         }
-
         return enemy;
     }
 }

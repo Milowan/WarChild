@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float movSpeed;
+    private float movSpeed;
     private float sensitivity;
     private Camera camera;
     private Player player;

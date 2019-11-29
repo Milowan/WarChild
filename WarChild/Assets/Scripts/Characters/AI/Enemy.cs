@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : Character
 {
@@ -13,21 +14,21 @@ public class Enemy : Character
     private float arrivalRange;
     private float wanderRangeMin;
     private float wanderRangeMax;
-    private bool moving;
     private bool alert;
+    private NavMeshAgent agent;
 
 
     // Start is called before the first frame update
     void Awake()
     {
         AIController.Wander += Wander;
+        agent = GetComponent<NavMeshAgent>();
         equippedWeapon = Instantiate(weaponPrefab).GetComponent<Weapon>();
         body = GetComponent<Rigidbody>();
         maxForce = 5f;
         arrivalRange = 10f;
         gameObject.SetActive(false);
         equippedWeapon.gameObject.SetActive(false);
-        moving = false;
         wanderRangeMin = -40f;
         wanderRangeMax = 40f;
         alert = false;
@@ -43,8 +44,6 @@ public class Enemy : Character
     {
         currentV = body.velocity;
         CheckTarget();
-        if (moving)
-            Steer();
         if (alert)
             CheckFire();
     }
@@ -55,20 +54,6 @@ public class Enemy : Character
         {
             destination = -(transform.forward * 3f);
         }
-    }
-
-    private void Steer()
-    {
-        Vector3 target = destination - transform.position;
-        target = target.normalized * stats.GetMovSpeed();
-        target -= currentV;
-        target = Vector3.ClampMagnitude(target, maxForce);
-        currentV = Vector3.ClampMagnitude(currentV + target, stats.GetMovSpeed());
-        transform.position += currentV;
-        transform.forward = currentV.normalized;
-        EnemyStats mStats = (EnemyStats)stats;
-        if ((destination - transform.position).magnitude < arrivalRange || (GetComponent<Scanner>().GetTarget() && (GetComponent<Scanner>().GetTarget().transform.position - transform.position).magnitude < mStats.GetRange()))
-            moving = false;
     }
 
     private void CheckFire()
@@ -93,19 +78,13 @@ public class Enemy : Character
 
     private void Wander()
     {
-        if (gameObject.activeSelf)
-        {
-            moving = true;
-        }
-
-        destination.Set(Random.Range(wanderRangeMin, wanderRangeMax) + transform.position.x, transform.position.y, Random.Range(wanderRangeMin, wanderRangeMax) + transform.position.z); 
+        agent.SetDestination(new Vector3(Random.Range(wanderRangeMin, wanderRangeMax) + transform.position.x, transform.position.y, Random.Range(wanderRangeMin, wanderRangeMax) + transform.position.z));
     }
 
     private void Chase()
     {
-        moving = true;
         alert = true;
-        destination = GetComponent<Scanner>().GetTarget().transform.position;
+        agent.SetDestination(GetComponent<Scanner>().GetTarget().transform.position);
     }
 
     public void Spawn()
@@ -120,12 +99,22 @@ public class Enemy : Character
         transform.position = tf.position;
         transform.rotation = tf.rotation;
         destination.Set(Random.Range(wanderRangeMin, wanderRangeMax) + transform.position.x, transform.position.y, Random.Range(wanderRangeMin, wanderRangeMax) + transform.position.z);
-        moving = true;
     }
 
     private void CheckTarget()
     {
         Character target = GetComponent<Scanner>().GetTarget();
+        if (target != null)
+        {
+            AIController.Wander -= Wander;
+            AIController.Chase -= Chase;
+            AIController.Chase += Chase;
+        }
+    }
+
+    public void SetTarget(Character target)
+    {
+        GetComponent<Scanner>().SetTarget(target);
         if (target != null)
         {
             AIController.Wander -= Wander;

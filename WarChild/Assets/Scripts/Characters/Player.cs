@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
@@ -23,6 +24,11 @@ public class Player : Character
     public Rigidbody GetBody()
     {
         return body;
+    }
+
+    protected override void Die()
+    {
+        SceneManager.LoadScene("MissionFail");
     }
 
     // Update is called once per frame

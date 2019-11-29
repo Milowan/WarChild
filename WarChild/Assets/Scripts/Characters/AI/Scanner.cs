@@ -39,4 +39,9 @@ public class Scanner : MonoBehaviour
     {
         return target;
     }
+
+    public void SetTarget(Character mTarget)
+    {
+        target = mTarget;
+    }
 }
