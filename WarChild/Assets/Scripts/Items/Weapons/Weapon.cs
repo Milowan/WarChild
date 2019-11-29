@@ -69,4 +69,9 @@ public class Weapon : MonoBehaviour
             reloading = false;
         }
     }
+
+    public WeaponStats GetStats()
+    {
+        return stats;
+    }
 }

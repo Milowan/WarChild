@@ -14,6 +14,7 @@ public class Enemy : Character
     private float wanderRangeMin;
     private float wanderRangeMax;
     private bool moving;
+    private bool alert;
 
 
     // Start is called before the first frame update
@@ -29,7 +30,7 @@ public class Enemy : Character
         moving = false;
         wanderRangeMin = -40f;
         wanderRangeMax = 40f;
-
+        alert = false;
         SetStats();
     }
 
@@ -44,6 +45,8 @@ public class Enemy : Character
         CheckTarget();
         if (moving)
             Steer();
+        if (alert)
+            CheckFire();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -63,8 +66,29 @@ public class Enemy : Character
         currentV = Vector3.ClampMagnitude(currentV + target, stats.GetMovSpeed());
         transform.position += currentV;
         transform.forward = currentV.normalized;
-        if ((destination - transform.position).magnitude < arrivalRange)
+        EnemyStats mStats = (EnemyStats)stats;
+        if ((destination - transform.position).magnitude < arrivalRange || (GetComponent<Scanner>().GetTarget() && (GetComponent<Scanner>().GetTarget().transform.position - transform.position).magnitude < mStats.GetRange()))
             moving = false;
+    }
+
+    private void CheckFire()
+    {
+        Character target = GetComponent<Scanner>().GetTarget().GetComponent<Character>();
+        float angle = Vector3.Angle(transform.position, target.transform.position);
+        if (angle < equippedWeapon.GetStats().GetAccuracy())
+        {
+            RaycastHit hit;
+            EnemyStats mStats = (EnemyStats)stats;
+            Physics.Raycast(transform.position, transform.forward, out hit, mStats.GetRange());
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<Character>() == target)
+                {
+                    PullTrigger();
+                }
+            }
+        }
+
     }
 
     private void Wander()
@@ -80,6 +104,7 @@ public class Enemy : Character
     private void Chase()
     {
         moving = true;
+        alert = true;
         destination = GetComponent<Scanner>().GetTarget().transform.position;
     }
 
@@ -111,6 +136,7 @@ public class Enemy : Character
 
     protected override void Die()
     {
+        alert = false;
         gameObject.SetActive(false);
         equippedWeapon.gameObject.SetActive(false);
     }

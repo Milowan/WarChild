@@ -8,7 +8,6 @@ public class AIController : MonoBehaviour
 
     public static event AIEvent Wander;
     public static event AIEvent Chase;
-    public static event AIEvent Shoot;
 
     private float wanderCooldown;
     private float WCTimer;

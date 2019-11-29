@@ -12,7 +12,7 @@ public class RifleStats : WeaponStats
         flightSpeed = 400f;
         clipSize = 30;
         reloadSp = 1.5f;
-        accuracy = 0.7f;
+        accuracy = 5f;
     }
 
 }
