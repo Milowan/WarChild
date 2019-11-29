@@ -46,6 +46,8 @@ public class AIManager : MonoBehaviour
                 {
                     enemy.Initialize(spawnPoints[Random.Range(0, transform.childCount)]);
                     enemy.Spawn();
+                    if (spawnCount == maxSpawn - 1)
+                        enemy.IsLast();
                 }
                 cooldownTimer = 0.0f;
                 ++spawnCount;

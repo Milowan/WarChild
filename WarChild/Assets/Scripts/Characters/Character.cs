@@ -6,18 +6,21 @@ public class Character : MonoBehaviour
 {
     protected Weapon equippedWeapon;
     protected CharacterStats stats;
-    private Vector3 weaponPosition;
+    protected Vector3 weaponPosition;
 
 
-    // Update is called once per frame
-    void Update()
+    
+
+    public void UpdateWeapon(float pitch, float yaw)
     {
+        
         if (equippedWeapon != null)
         {
             weaponPosition = transform.right * 0.5f;
             equippedWeapon.gameObject.transform.position = transform.position + weaponPosition;
-            equippedWeapon.gameObject.transform.rotation = transform.rotation;
+            equippedWeapon.gameObject.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
         }
+        
     }
 
     public CharacterStats GetStats()

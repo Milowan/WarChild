@@ -10,6 +10,7 @@ public class Enemy : Character
     private float wanderRangeMin;
     private float wanderRangeMax;
     private bool alert;
+    private bool isLast;
     protected NavMeshAgent agent;
 
 
@@ -17,7 +18,7 @@ public class Enemy : Character
     void Awake()
     {
         AIController.Wander += Wander;
-
+        isLast = false;
         agent = GetComponent<NavMeshAgent>();
         equippedWeapon = Instantiate(weaponPrefab).GetComponent<Weapon>();
         wanderRangeMin = -40f;
@@ -32,6 +33,9 @@ public class Enemy : Character
     protected virtual void SetStats()
     {
 
+    }// Update is called once per frame
+    void Update()
+    {
     }
 
     private void FixedUpdate()
@@ -39,6 +43,13 @@ public class Enemy : Character
         CheckTarget();
         if (alert)
             CheckFire();
+
+        if (equippedWeapon != null)
+        {
+            weaponPosition = transform.right * 0.5f;
+            equippedWeapon.gameObject.transform.position = transform.position + weaponPosition;
+            equippedWeapon.gameObject.transform.rotation = transform.rotation;
+        }
     }
 
     private void CheckFire()
@@ -59,6 +70,11 @@ public class Enemy : Character
             }
         }
 
+    }
+
+    public void IsLast()
+    {
+        isLast = true;
     }
 
     private void Wander()
@@ -116,6 +132,9 @@ public class Enemy : Character
 
     protected override void Die()
     {
+        if (isLast)
+            DefenseManager.waveOver = true;
+        isLast = false;
         alert = false;
         gameObject.SetActive(false);
         equippedWeapon.gameObject.SetActive(false);

@@ -9,6 +9,7 @@ public class DefenseManager : MissionManager
     private float cooldownTimer;
     private int wave;
     private int addPerWave;
+    public static bool waveOver;
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +29,16 @@ public class DefenseManager : MissionManager
         PlayerHUD.objective.text = "Defend the Objective, wave : " + wave;
         if(!AIManager.canSpawn)
         {
-            if (cooldownTimer >= waveCooldown)
+            if (waveOver)
             {
-                StartWave();
+                if (cooldownTimer >= waveCooldown)
+                {
+                    StartWave();
+                }
+                else
+                {
+                    cooldownTimer += Time.deltaTime;
+                }
             }
         }
     }

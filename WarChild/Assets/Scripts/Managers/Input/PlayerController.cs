@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
 
         transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
+        player.UpdateWeapon(pitch, yaw);
         playerCamera.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
 
         if (Input.GetButton("Fire1"))
