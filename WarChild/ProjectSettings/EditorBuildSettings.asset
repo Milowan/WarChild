@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: a6e2a268292a93645befaabee37661c2
+  - enabled: 1
+    path: Assets/Scenes/MissionFail.unity
+    guid: 2f54667da40c9b745ac05f0b49943b0b
   m_configObjects: {}
