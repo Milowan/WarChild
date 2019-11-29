@@ -6,33 +6,27 @@ using UnityEngine.AI;
 public class Enemy : Character
 {
     public GameObject weaponPrefab;
-    private float FieldOfView;
     private Vector3 destination;
-    private Vector3 currentV;
-    private Rigidbody body;
-    private float maxForce;
-    private float arrivalRange;
     private float wanderRangeMin;
     private float wanderRangeMax;
     private bool alert;
-    private NavMeshAgent agent;
+    protected NavMeshAgent agent;
 
 
     // Start is called before the first frame update
     void Awake()
     {
         AIController.Wander += Wander;
+
         agent = GetComponent<NavMeshAgent>();
         equippedWeapon = Instantiate(weaponPrefab).GetComponent<Weapon>();
-        body = GetComponent<Rigidbody>();
-        maxForce = 5f;
-        arrivalRange = 10f;
-        gameObject.SetActive(false);
-        equippedWeapon.gameObject.SetActive(false);
         wanderRangeMin = -40f;
         wanderRangeMax = 40f;
         alert = false;
+
         SetStats();
+        gameObject.SetActive(false);
+        equippedWeapon.gameObject.SetActive(false);
     }
 
     protected virtual void SetStats()
@@ -42,18 +36,9 @@ public class Enemy : Character
 
     private void FixedUpdate()
     {
-        currentV = body.velocity;
         CheckTarget();
         if (alert)
             CheckFire();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            destination = -(transform.forward * 3f);
-        }
     }
 
     private void CheckFire()
@@ -78,13 +63,19 @@ public class Enemy : Character
 
     private void Wander()
     {
-        agent.SetDestination(new Vector3(Random.Range(wanderRangeMin, wanderRangeMax) + transform.position.x, transform.position.y, Random.Range(wanderRangeMin, wanderRangeMax) + transform.position.z));
+        if (gameObject.activeSelf)
+        { 
+            agent.SetDestination(new Vector3(Random.Range(wanderRangeMin, wanderRangeMax) + transform.position.x, transform.position.y, Random.Range(wanderRangeMin, wanderRangeMax) + transform.position.z)); 
+        }
     }
 
     private void Chase()
     {
-        alert = true;
-        agent.SetDestination(GetComponent<Scanner>().GetTarget().transform.position);
+        if (gameObject.activeSelf)
+        {
+            alert = true;
+            agent.SetDestination(GetComponent<Scanner>().GetTarget().transform.position);
+        }
     }
 
     public void Spawn()

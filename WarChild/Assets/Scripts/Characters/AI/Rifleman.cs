@@ -13,5 +13,7 @@ public class Rifleman : Enemy
     {
         stats = new RiflemanStats();
         stats.SetCurrentHP(stats.GetMaxHealth());
+        RiflemanStats mStats = (RiflemanStats)stats;
+        agent.stoppingDistance = mStats.GetRange();
     }
 }

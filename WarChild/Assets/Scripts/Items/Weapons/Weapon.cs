@@ -74,4 +74,9 @@ public class Weapon : MonoBehaviour
     {
         return stats;
     }
+
+    public int InClip()
+    {
+        return currentClip;
+    }
 }

@@ -12,6 +12,9 @@ public class AIManager : MonoBehaviour
     private float cooldownTimer;
     private Transform[] spawnPoints;
     private static Character initialTarget;
+    public static int maxSpawn;
+    private int spawnCount;
+    public static bool canSpawn;
 
     // Start is called before the first frame update
     void Start()
@@ -34,18 +37,24 @@ public class AIManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (cooldownTimer >= spawnCooldown)
+        if (canSpawn)
         {
-            Enemy enemy = GetInactiveEnemy();
-            if (enemy != null)
+            if (cooldownTimer >= spawnCooldown)
             {
-                enemy.Initialize(spawnPoints[Random.Range(0, transform.childCount)]);
-                enemy.Spawn();
+                Enemy enemy = GetInactiveEnemy();
+                if (enemy != null)
+                {
+                    enemy.Initialize(spawnPoints[Random.Range(0, transform.childCount)]);
+                    enemy.Spawn();
+                }
+                cooldownTimer = 0.0f;
+                ++spawnCount;
+                if (spawnCount >= maxSpawn)
+                    canSpawn = false;
             }
-            cooldownTimer = 0.0f;
-        }
 
-        cooldownTimer += Time.deltaTime;
+            cooldownTimer += Time.deltaTime;
+        }
     }
 
     public static void StartWithTarget(Character target)

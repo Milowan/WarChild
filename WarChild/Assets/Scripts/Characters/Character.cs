@@ -25,6 +25,11 @@ public class Character : MonoBehaviour
         return stats;
     }
 
+    public Weapon GetWeapon()
+    {
+        return equippedWeapon;
+    }
+
     public void PullTrigger()
     {
         equippedWeapon.Trigger();
@@ -36,6 +41,11 @@ public class Character : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public float GetHealthFraction()
+    {
+        return stats.GetCurrentHP() / stats.GetMaxHealth();
     }
 
     protected virtual void Die()

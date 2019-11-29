@@ -10,7 +10,7 @@ public class RifleStats : WeaponStats
         atkSp = 3.4f;
         dmg = 10f;
         flightSpeed = 400f;
-        clipSize = 30;
+        clipSize = 20;
         reloadSp = 1.5f;
         accuracy = 5f;
     }
