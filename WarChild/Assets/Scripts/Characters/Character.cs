@@ -9,7 +9,11 @@ public class Character : MonoBehaviour
     protected Vector3 weaponPosition;
 
 
-    
+    private void Start()
+    {
+        GameEventManager.Pause += Pause;
+        GameEventManager.UnPause += UnPause;
+    }
 
     public void UpdateWeapon(float pitch, float yaw)
     {
@@ -54,5 +58,15 @@ public class Character : MonoBehaviour
     protected virtual void Die()
     {
 
+    }
+
+    private void Pause()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void UnPause()
+    {
+        gameObject.SetActive(true);
     }
 }

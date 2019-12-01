@@ -13,11 +13,11 @@ public class Enemy : Character
     private bool isLast;
     protected NavMeshAgent agent;
 
-
-    // Start is called before the first frame update
     void Awake()
     {
         AIController.Wander += Wander;
+        GameEventManager.GameOver += GameOver;
+
         isLast = false;
         agent = GetComponent<NavMeshAgent>();
         equippedWeapon = Instantiate(weaponPrefab).GetComponent<Weapon>();
@@ -34,9 +34,6 @@ public class Enemy : Character
     {
 
     }// Update is called once per frame
-    void Update()
-    {
-    }
 
     private void FixedUpdate()
     {
@@ -138,5 +135,11 @@ public class Enemy : Character
         alert = false;
         gameObject.SetActive(false);
         equippedWeapon.gameObject.SetActive(false);
+    }
+
+    private void GameOver()
+    {
+        AIController.Chase -= Chase;
+        AIController.Wander -= Wander;
     }
 }
