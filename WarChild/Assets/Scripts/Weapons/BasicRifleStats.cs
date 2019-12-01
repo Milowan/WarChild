@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RifleStats : WeaponStats
+public class BasicRifleStats : WeaponStats
 {
 
     // Use this for initialization
-    public RifleStats()
+    public BasicRifleStats()
     {
         atkSp = 3.4f;
         dmg = 10f;

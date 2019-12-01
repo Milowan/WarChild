@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void Fire()
     {
-
+        currentClip--;
     }
 
     public void Trigger()
