@@ -26,7 +26,7 @@ public class AIManager : MonoBehaviour
             AIPool[i] = Instantiate(RiflemanPrefab).GetComponent<Enemy>();
         }
         spawnCooldown = 3.5f;
-        cooldownTimer = spawnCooldown;
+        cooldownTimer = 0.0f;
         spawnPoints = new Transform[transform.childCount];
         for (int i = 0; i < transform.childCount; ++i)
         {

@@ -18,7 +18,7 @@ public class DefenseManager : MissionManager
         cooldownTimer = 0f;
         AIManager.StartWithTarget(defensePoint);
         wave = 0;
-        AIManager.maxSpawn = 20;
+        AIManager.maxSpawn = 10;
         AIManager.canSpawn = false;
         addPerWave = 5;
         StartWave();
@@ -41,6 +41,8 @@ public class DefenseManager : MissionManager
                 }
             }
         }
+        if (wave % 5 == 0)
+            Extract();
     }
 
     public void StartWave()
@@ -49,5 +51,11 @@ public class DefenseManager : MissionManager
         AIManager.maxSpawn += addPerWave;
         AIManager.canSpawn = true;
         cooldownTimer = 0.0f;
+    }
+
+    protected override void Extract()
+    {
+        GameEventManager.TriggerPause();
+        UIManager.OpenExMenu();
     }
 }

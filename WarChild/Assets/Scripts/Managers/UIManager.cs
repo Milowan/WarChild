@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     public static UIEvent CloseNavigation;
     public static UIEvent OpenArsenal;
     public static UIEvent CloseArsenal;
+    public static UIEvent OpenExtraction;
+    public static UIEvent CloseExtraction;
 
     public static void OpenNav()
     {
@@ -31,5 +33,21 @@ public class UIManager : MonoBehaviour
     {
         if (CloseArsenal != null)
             CloseArsenal();
+    }
+
+    public static void OpenExMenu()
+    {
+        if (OpenExtraction != null)
+        {
+            OpenExtraction();
+        }
+    }
+
+    public static void CloseExMenu()
+    {
+        if (CloseExtraction != null)
+        {
+            CloseExtraction();
+        }
     }
 }

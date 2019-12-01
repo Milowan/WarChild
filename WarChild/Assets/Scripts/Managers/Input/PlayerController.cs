@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
         maxPitch = 30f;
         player = GetComponent<Player>();
         movSpeed = GetComponent<Player>().GetStats().GetMovSpeed();
-        sensitivity = 1f;
+        sensitivity = 5f;
         playerCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         pitch = 0.0f;
         yaw = 0.0f;

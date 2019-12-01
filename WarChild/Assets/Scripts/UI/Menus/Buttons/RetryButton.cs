@@ -7,6 +7,6 @@ public class RetryButton : UIButton
 {
     public override void Activate()
     {
-        SceneManager.LoadScene(MissionManager.currentMission);
+        SceneManager.LoadScene(MissionTracker.currentMission);
     }
 }

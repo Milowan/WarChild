@@ -13,6 +13,7 @@ public class Player : Character
     {
         body = GetComponent<Rigidbody>();
         equippedWeapon = PlayerInventory.equippedWeapon;
+
         if (equippedWeapon == null)
         {
             equippedWeapon = Instantiate(defaultWeaponPrefab).GetComponent<Weapon>();
@@ -28,7 +29,18 @@ public class Player : Character
 
     protected override void Die()
     {
+        GameEventManager.TriggerGameOver();
         SceneManager.LoadScene("MissionFail");
+    }
+
+    private void Pause()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void UnPause()
+    {
+        gameObject.SetActive(true);
     }
 
     // Update is called once per frame

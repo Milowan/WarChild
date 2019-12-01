@@ -9,6 +9,8 @@ public class GameEventManager : MonoBehaviour
 
     public static event GameEvent GameStart;
     public static event GameEvent GameOver;
+    public static event GameEvent Pause;
+    public static event GameEvent UnPause;
     public static void TriggerGameStart()
     {
         if (GameStart != null)
@@ -22,6 +24,22 @@ public class GameEventManager : MonoBehaviour
         if (GameOver != null)
         {
             GameOver();
+        }
+    }
+
+    public static void TriggerPause()
+    {
+        if (Pause != null)
+        {
+            Pause();
+        }
+    }
+
+    public static void TriggerUnPause()
+    {
+        if (UnPause != null)
+        {
+            UnPause();
         }
     }
 }
