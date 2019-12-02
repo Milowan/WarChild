@@ -56,5 +56,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c82e3407395c224a956e6c2f678b56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RiflemanPrefab: {fileID: 8594154838132487713, guid: c93c31cbfdc43d5438f737c4b5d37409,
+  BasicRiflemanPrefab: {fileID: 8594154838132487713, guid: c93c31cbfdc43d5438f737c4b5d37409,
+    type: 3}
+  AdvancedRiflemanPrefab: {fileID: 2981354294083551630, guid: a1de17ffae2ebc242bd4976dd52b2496,
+    type: 3}
+  MachinePistolerPrefab: {fileID: 5086626773876959269, guid: d05f98646f9edd24cbe06833fb496b3a,
     type: 3}

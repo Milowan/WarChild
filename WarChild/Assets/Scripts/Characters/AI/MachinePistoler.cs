@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicRifleman : Enemy
-{ 
+public class MachinePistoler : Enemy
+{
     protected override void SetStats()
     {
-        stats = new BasicRiflemanStats();
+        stats = new MachinePistolerStats();
         stats.SetCurrentHP(stats.GetMaxHealth());
-        BasicRiflemanStats mStats = (BasicRiflemanStats)stats;
+        MachinePistolerStats mStats = (MachinePistolerStats)stats;
         agent.stoppingDistance = mStats.GetRange() / 10f;
     }
 }

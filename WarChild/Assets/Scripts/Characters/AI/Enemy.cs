@@ -129,6 +129,8 @@ public class Enemy : Character
 
     protected override void Die()
     {
+        if (ExterminationManager.liveEnemies > 0)
+            ExterminationManager.liveEnemies--;
         if (isLast)
             DefenseManager.waveOver = true;
         isLast = false;
