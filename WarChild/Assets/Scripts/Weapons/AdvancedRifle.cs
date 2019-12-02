@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdvancedRifle : MonoBehaviour
+public class AdvancedRifle : Weapon
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void SetStats()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        stats = new AdvancedRifleStats();
     }
 }

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/BootScene.unity
+    guid: 8196e4efdad6593409dacddd54944314
+  - enabled: 1
     path: Assets/Scenes/Defense.unity
     guid: 207d1bf7c8d09d846a0b11227761784b
   - enabled: 1
@@ -14,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MissionFail.unity
     guid: 2f54667da40c9b745ac05f0b49943b0b
+  - enabled: 1
+    path: Assets/Scenes/Exterminate.unity
+    guid: 9999522a49d870f478ec1c0e425f550a
+  - enabled: 1
+    path: Assets/Scenes/MissionComplete.unity
+    guid: d0e7a2d3e8024da42aef0ad1728b04a8
   m_configObjects: {}

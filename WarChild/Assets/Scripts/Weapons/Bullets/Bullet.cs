@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float flightSpeed;
+    private float movFraction;
     private float damage;
     private Vector3 forward;
     private float lifespan;
@@ -12,7 +13,7 @@ public class Bullet : MonoBehaviour
 
     private void Awake()
     {
-        lifespan = 1.0f;
+        lifespan = 5.0f;
         age = 0;
         gameObject.SetActive(false);
     }
@@ -23,9 +24,10 @@ public class Bullet : MonoBehaviour
         {
             age += Time.deltaTime;
 
+            movFraction = 1.0f / 20.0f;
             RaycastHit hit;
-            Physics.Raycast(transform.position, forward.normalized, out hit, flightSpeed * Time.deltaTime);
-            Debug.DrawRay(transform.position, forward * flightSpeed * Time.deltaTime, Color.black);
+            Physics.Raycast(transform.position, forward.normalized, out hit, flightSpeed * movFraction);
+            Debug.DrawRay(transform.position, forward * flightSpeed * movFraction, Color.black);
             if (hit.collider != null)
             {
                 Character character;
@@ -36,7 +38,7 @@ public class Bullet : MonoBehaviour
                 Despawn();
             }
 
-            transform.position += forward * flightSpeed * Time.deltaTime;
+            transform.position += forward * flightSpeed * movFraction;
         }
         else
         {
