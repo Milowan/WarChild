@@ -12,9 +12,11 @@ public class PlayerController : MonoBehaviour
     private float maxPitch;
     private float yaw;
     private float jumpSpeed;
+    private bool jumping;
 
     private void Start()
     {
+        jumping = false;
         jumpSpeed = 10f;
         maxPitch = 30f;
         player = GetComponent<Player>();
@@ -24,6 +26,19 @@ public class PlayerController : MonoBehaviour
         pitch = 0.0f;
         yaw = 0.0f;
     }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump") && !jumping)
+        {
+            player.GetBody().AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+            jumping = true;
+        }
+
+        //if (Input.GetButtonDown("Cancel"))
+        //    GameEventManager.TriggerPause();
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -46,10 +61,11 @@ public class PlayerController : MonoBehaviour
         {
             player.PullTrigger();
         }
+    }
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            player.GetBody().AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
-        }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<Terrain>())
+            jumping = false;
     }
 }

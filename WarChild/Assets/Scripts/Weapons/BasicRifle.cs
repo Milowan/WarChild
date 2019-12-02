@@ -7,10 +7,14 @@ public class BasicRifle : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        stats = new BasicRifleStats();
         currentClip = stats.GetClipSize();
         cooldown = 1 / stats.GetAtkSpeed();
         cdTimer = cooldown;
+    }
+
+    protected override void SetStats()
+    {
+        stats = new BasicRifleStats();
     }
 
     public override void Fire()

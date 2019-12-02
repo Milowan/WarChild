@@ -18,6 +18,12 @@ public class Weapon : MonoBehaviour
         cdTimer = 0;
         pool = GameObject.Find("BulletPool").GetComponent<BulletPool>();
         reloading = false;
+        SetStats();
+    }
+
+    protected virtual void SetStats()
+    {
+
     }
 
     // Update is called once per frame

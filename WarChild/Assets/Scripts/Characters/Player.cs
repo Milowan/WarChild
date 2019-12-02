@@ -11,6 +11,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Awake()
     {
+        gameObject.SetActive(true);
         body = GetComponent<Rigidbody>();
         equippedWeapon = PlayerInventory.equippedWeapon;
 

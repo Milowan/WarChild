@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DefenseManager : MissionManager
 {
+    public GameObject extractionPrefab;
     public Character defensePoint;
     private float waveCooldown;
     private float cooldownTimer;
@@ -21,6 +22,7 @@ public class DefenseManager : MissionManager
         AIManager.maxSpawn = 10;
         AIManager.canSpawn = false;
         addPerWave = 5;
+        GameObject.FindGameObjectWithTag("Player").transform.GetChild(1);
         StartWave();
     }
 

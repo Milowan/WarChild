@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
             age += Time.deltaTime;
 
             RaycastHit hit;
-            Physics.Raycast(transform.position, forward, out hit, flightSpeed * Time.deltaTime);
+            Physics.Raycast(transform.position, forward.normalized, out hit, flightSpeed * Time.deltaTime);
             Debug.DrawRay(transform.position, forward * flightSpeed * Time.deltaTime, Color.black);
             if (hit.collider != null)
             {
