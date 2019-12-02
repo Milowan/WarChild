@@ -11,6 +11,7 @@ public class GameEventManager : MonoBehaviour
     public static event GameEvent GameOver;
     public static event GameEvent Pause;
     public static event GameEvent UnPause;
+
     public static void TriggerGameStart()
     {
         if (GameStart != null)
