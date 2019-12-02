@@ -9,6 +9,7 @@ public class MissionButton : UIButton
 
     public override void Activate()
     {
+        MissionTracker.SetCurrentMission(targetLevel);
         if (targetLevel.unlocked)
             SceneManager.LoadScene(targetLevel.GetName());
     }

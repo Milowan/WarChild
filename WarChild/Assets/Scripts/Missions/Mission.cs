@@ -30,6 +30,13 @@ public class Mission
         next = nMission;
     }
 
+    public void Complete()
+    {
+        completed = true;
+        if (next != null)
+            next.Unlock();
+    }
+
     public void Unlock()
     {
         unlocked = true;

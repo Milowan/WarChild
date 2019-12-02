@@ -42,6 +42,7 @@ public class Navigation : Menu
                 if (mButton.text == MissionData.missions[i].GetName())
                 {
                     button.GetComponent<MissionButton>().targetLevel = MissionData.missions[i];
+                    break;
                 }
             }
         }

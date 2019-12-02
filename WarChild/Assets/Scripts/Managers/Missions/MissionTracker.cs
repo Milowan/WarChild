@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MissionTracker 
 {
-    public static string currentMission;
+    public static Mission currentMission;
 
-    public static void SetCurrentMission(string mission)
+    public static void SetCurrentMission(Mission mission)
     {
         currentMission = mission;
     }

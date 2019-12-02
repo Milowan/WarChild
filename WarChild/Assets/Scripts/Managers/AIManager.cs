@@ -16,10 +16,15 @@ public class AIManager : MonoBehaviour
     private int spawnCount;
     public static bool canSpawn;
 
+    private void Awake()
+    {
+        canSpawn = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        poolSize = 4;
+        poolSize = 10;
         AIPool = new Enemy[poolSize];
         for (int i = 0; i < poolSize; ++i)
         {

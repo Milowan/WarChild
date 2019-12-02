@@ -9,7 +9,6 @@ public class MissionManager : MonoBehaviour
 
     private void Awake()
     {
-        MissionTracker.SetCurrentMission(SceneManager.GetActiveScene().name);
         Cursor.lockState = CursorLockMode.Locked;
         Instantiate(playerPrefab).transform.position = GameObject.Find("PlayerSpawn").transform.position;
     }

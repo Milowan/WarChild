@@ -19,7 +19,7 @@ public class DefenseManager : MissionManager
         cooldownTimer = 0f;
         AIManager.StartWithTarget(defensePoint);
         wave = 0;
-        AIManager.maxSpawn = 10;
+        AIManager.maxSpawn = 5;
         AIManager.canSpawn = false;
         addPerWave = 5;
         GameObject.FindGameObjectWithTag("Player").transform.GetChild(1);
