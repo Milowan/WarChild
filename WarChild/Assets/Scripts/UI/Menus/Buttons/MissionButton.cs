@@ -7,6 +7,12 @@ public class MissionButton : UIButton
 {
     public Mission targetLevel;
 
+    private void Start()
+    {
+        if (!targetLevel.unlocked)
+            gameObject.SetActive(false);
+    }
+
     public override void Activate()
     {
         MissionTracker.SetCurrentMission(targetLevel);

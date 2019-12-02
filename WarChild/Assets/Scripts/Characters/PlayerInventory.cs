@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerInventory 
 {
-    public static Weapon equippedWeapon;
-    private static Weapon[] weapons;
+    public static GameObject equippedWeapon;
 
 
 }

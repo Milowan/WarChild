@@ -8,6 +8,7 @@ public class MissionCompleteMenu : Menu
     void Awake()
     {
         MissionTracker.currentMission.Complete();
+        MissionData.Save();
     }
 
 }

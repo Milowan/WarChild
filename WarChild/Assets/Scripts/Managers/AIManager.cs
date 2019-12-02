@@ -7,31 +7,27 @@ public class AIManager : MonoBehaviour
 
     private Enemy[] AIPool;
     private int poolSize;
-    public GameObject RiflemanPrefab;
-    private float spawnCooldown;
-    private float cooldownTimer;
+    public GameObject BasicRiflemanPrefab;
+    public GameObject AdvancedRiflemanPrefab;
+    public GameObject MachinePistolerPrefab;
     private Transform[] spawnPoints;
-    private static Character initialTarget;
-    public static int maxSpawn;
-    private int spawnCount;
-    public static bool canSpawn;
+    private Character initialTarget;
 
-    private void Awake()
-    {
-        canSpawn = true;
-    }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        poolSize = 10;
+        poolSize = 30;
         AIPool = new Enemy[poolSize];
         for (int i = 0; i < poolSize; ++i)
         {
-            AIPool[i] = Instantiate(RiflemanPrefab).GetComponent<Enemy>();
+            if (i < poolSize / 3)
+                AIPool[i] = Instantiate(BasicRiflemanPrefab).GetComponent<Enemy>();
+            else if (i < poolSize * (2 / 3))
+                AIPool[i] = Instantiate(AdvancedRiflemanPrefab).GetComponent<Enemy>();
+            else
+                AIPool[i] = Instantiate(MachinePistolerPrefab).GetComponent<Enemy>();
         }
-        spawnCooldown = 3.5f;
-        cooldownTimer = 0.0f;
         spawnPoints = new Transform[transform.childCount];
         for (int i = 0; i < transform.childCount; ++i)
         {
@@ -39,37 +35,17 @@ public class AIManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (canSpawn)
-        {
-            if (cooldownTimer >= spawnCooldown)
-            {
-                Enemy enemy = GetInactiveEnemy();
-                if (enemy != null)
-                {
-                    enemy.Initialize(spawnPoints[Random.Range(0, transform.childCount)]);
-                    enemy.Spawn();
-                    if (spawnCount == maxSpawn - 1)
-                        enemy.IsLast();
-                }
-                cooldownTimer = 0.0f;
-                ++spawnCount;
-                if (spawnCount >= maxSpawn)
-                    canSpawn = false;
-            }
-
-            cooldownTimer += Time.deltaTime;
-        }
-    }
-
-    public static void StartWithTarget(Character target)
+    public void StartWithTarget(Character target)
     {
         initialTarget = target;
     }
 
-    private Enemy GetInactiveEnemy()
+    public Transform[] GetSpawnPoints()
+    {
+        return spawnPoints;
+    }
+
+    public Enemy GetInactiveEnemy()
     {
         Enemy enemy = null;
         foreach (Enemy nme in AIPool)
@@ -82,5 +58,10 @@ public class AIManager : MonoBehaviour
             }
         }
         return enemy;
+    }
+
+    public int GetPoolSize()
+    {
+        return AIPool.Length;
     }
 }

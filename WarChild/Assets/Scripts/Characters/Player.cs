@@ -13,7 +13,9 @@ public class Player : Character
     {
         gameObject.SetActive(true);
         body = GetComponent<Rigidbody>();
-        equippedWeapon = PlayerInventory.equippedWeapon;
+        equippedWeapon = Instantiate(PlayerInventory.equippedWeapon).GetComponent<Weapon>();
+        GameEventManager.Pause += Pause;
+        GameEventManager.UnPause += UnPause;
 
         if (equippedWeapon == null)
         {
@@ -31,16 +33,19 @@ public class Player : Character
     protected override void Die()
     {
         GameEventManager.TriggerGameOver();
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("MissionFail");
     }
 
     private void Pause()
     {
+        Cursor.lockState = CursorLockMode.None;
         gameObject.SetActive(false);
     }
 
     private void UnPause()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         gameObject.SetActive(true);
     }
 
